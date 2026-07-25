@@ -2,116 +2,56 @@
 
 namespace AgroResQ
 {
-namespace Services
-{
-
-DisasterService::DisasterService() = default;
-
-bool DisasterService::addDisaster(
-    const std::string& name,
-    const std::string& type,
-    const std::string& location,
-    const std::string& date,
-    int severity)
-{
-    if (!validator.isValidName(name))
+    namespace Services
     {
-        return false;
+        DisasterService::DisasterService() = default;
+
+        bool DisasterService::addDisaster(const std::string& name, const std::string& type,
+                                          const std::string& location, const std::string& date, int severity)
+        {
+            if (!validator.isValidName(name)) return false;
+            if (!validator.isValidName(type)) return false;
+            if (!validator.isValidLocation(location)) return false;
+            if (!validator.isValidDate(date)) return false;
+            if (!validator.isValidSeverity(severity)) return false;
+
+            int id = idGenerator.generateNextId("database/disaster.txt");
+            Entities::Disaster disaster(id, name, type, location, date, severity);
+
+            if (disasterRepository.add(disaster))
+            {
+                alertSystem.sendDisasterAlert(disaster);
+                return true;
+            }
+            return false;
+        }
+
+        bool DisasterService::updateDisaster(int id, const std::string& name, const std::string& type,
+                                             const std::string& location, const std::string& date, int severity)
+        {
+            if (!validator.isValidName(name)) return false;
+            if (!validator.isValidName(type)) return false;
+            if (!validator.isValidLocation(location)) return false;
+            if (!validator.isValidDate(date)) return false;
+            if (!validator.isValidSeverity(severity)) return false;
+
+            Entities::Disaster disaster(id, name, type, location, date, severity);
+            return disasterRepository.update(disaster);
+        }
+
+        bool DisasterService::deleteDisaster(int id)
+        {
+            return disasterRepository.remove(id);
+        }
+
+        bool DisasterService::searchDisaster(int id, Entities::Disaster& disaster)
+        {
+            return disasterRepository.getById(id, disaster);
+        }
+
+        std::vector<Entities::Disaster> DisasterService::getAllDisasters()
+        {
+            return disasterRepository.getAll();
+        }
     }
-
-    if (!validator.isValidName(type))
-    {
-        return false;
-    }
-
-    if (!validator.isValidLocation(location))
-    {
-        return false;
-    }
-
-    if (!validator.isValidDate(date))
-    {
-        return false;
-    }
-
-    if (!validator.isValidSeverity(severity))
-    {
-        return false;
-    }
-
-    int id = idGenerator.generateNextId("database/disaster.txt");
-
-    Entities::Disaster disaster(
-        id,
-        name,
-        type,
-        location,
-        date,
-        severity);
-
-    return disasterRepository.add(disaster);
-}
-
-bool DisasterService::updateDisaster(
-    int id,
-    const std::string& name,
-    const std::string& type,
-    const std::string& location,
-    const std::string& date,
-    int severity)
-{
-    if (!validator.isValidName(name))
-    {
-        return false;
-    }
-
-    if (!validator.isValidName(type))
-    {
-        return false;
-    }
-
-    if (!validator.isValidLocation(location))
-    {
-        return false;
-    }
-
-    if (!validator.isValidDate(date))
-    {
-        return false;
-    }
-
-    if (!validator.isValidSeverity(severity))
-    {
-        return false;
-    }
-
-    Entities::Disaster disaster(
-        id,
-        name,
-        type,
-        location,
-        date,
-        severity);
-
-    return disasterRepository.update(disaster);
-}
-
-bool DisasterService::deleteDisaster(int id)
-{
-    return disasterRepository.remove(id);
-}
-
-bool DisasterService::searchDisaster(
-    int id,
-    Entities::Disaster& disaster)
-{
-    return disasterRepository.getById(id, disaster);
-}
-
-std::vector<Entities::Disaster> DisasterService::getAllDisasters()
-{
-    return disasterRepository.getAll();
-}
-
-}
 }
