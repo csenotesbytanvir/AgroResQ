@@ -22,9 +22,15 @@ namespace AgroResQ
             DisasterService();
 
             bool addDisaster(const std::string& name, const std::string& type,
-                             const std::string& location, const std::string& date, int severity);
+                             const std::string& location, const std::string& date, int severity,
+                             int division = 0, int district = 0, int disasterType = 0,
+                             int affectedPeople = 0, int status = 1);
+
             bool updateDisaster(int id, const std::string& name, const std::string& type,
-                                const std::string& location, const std::string& date, int severity);
+                                const std::string& location, const std::string& date, int severity,
+                                int division = 0, int district = 0, int disasterType = 0,
+                                int affectedPeople = 0, int status = 1);
+
             bool deleteDisaster(int id);
             bool searchDisaster(int id, Entities::Disaster& disaster);
             std::vector<Entities::Disaster> getAllDisasters();

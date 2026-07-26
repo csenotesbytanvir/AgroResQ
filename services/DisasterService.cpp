@@ -7,7 +7,9 @@ namespace AgroResQ
         DisasterService::DisasterService() = default;
 
         bool DisasterService::addDisaster(const std::string& name, const std::string& type,
-                                          const std::string& location, const std::string& date, int severity)
+                                          const std::string& location, const std::string& date, int severity,
+                                          int division, int district, int disasterType,
+                                          int affectedPeople, int status)
         {
             if (!validator.isValidName(name)) return false;
             if (!validator.isValidName(type)) return false;
@@ -16,7 +18,9 @@ namespace AgroResQ
             if (!validator.isValidSeverity(severity)) return false;
 
             int id = idGenerator.generateNextId("database/disaster.txt");
-            Entities::Disaster disaster(id, name, type, location, date, severity);
+
+            Entities::Disaster disaster(id, name, type, location, date, severity,
+                                        division, district, disasterType, affectedPeople, status);
 
             if (disasterRepository.add(disaster))
             {
@@ -27,7 +31,9 @@ namespace AgroResQ
         }
 
         bool DisasterService::updateDisaster(int id, const std::string& name, const std::string& type,
-                                             const std::string& location, const std::string& date, int severity)
+                                             const std::string& location, const std::string& date, int severity,
+                                             int division, int district, int disasterType,
+                                             int affectedPeople, int status)
         {
             if (!validator.isValidName(name)) return false;
             if (!validator.isValidName(type)) return false;
@@ -35,7 +41,9 @@ namespace AgroResQ
             if (!validator.isValidDate(date)) return false;
             if (!validator.isValidSeverity(severity)) return false;
 
-            Entities::Disaster disaster(id, name, type, location, date, severity);
+            Entities::Disaster disaster(id, name, type, location, date, severity,
+                                        division, district, disasterType, affectedPeople, status);
+
             return disasterRepository.update(disaster);
         }
 

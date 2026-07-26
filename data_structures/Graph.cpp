@@ -1,7 +1,7 @@
 #include "Graph.h"
 #include <iostream>
-#include <climits>
 #include <algorithm>
+#include <climits>
 
 namespace AgroResQ
 {

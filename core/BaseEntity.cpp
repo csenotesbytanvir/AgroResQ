@@ -2,25 +2,22 @@
 
 namespace AgroResQ
 {
-namespace Core
-{
+    namespace Core
+    {
+        BaseEntity::BaseEntity() : id(0) {}
 
-BaseEntity::BaseEntity()
-    : id(0)
-{
-}
+        BaseEntity::~BaseEntity() = default;
 
-BaseEntity::~BaseEntity() = default;
+        void BaseEntity::setId(int id)
+        {
+            this->id = id;
+        }
 
-void BaseEntity::setId(int id)
-{
-    this->id = id;
-}
-
-int BaseEntity::getId() const
-{
-    return id;
-}
-
-}
+        int BaseEntity::getId() const
+        {
+            return id;
+        }
+        
+       
+    }
 }

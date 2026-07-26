@@ -1,28 +1,24 @@
 #pragma once
-
 #include "../services/DisasterService.h"
 
 namespace AgroResQ
 {
-namespace UI
-{
+    namespace UI
+    {
+        class DisasterMenu
+        {
+        private:
+            Services::DisasterService disasterService;
 
-class DisasterMenu
-{
-private:
-    Services::DisasterService disasterService;
+            void addDisaster();
+            void viewAllDisasters();
+            void searchDisaster();
+            void updateDisaster();
+            void deleteDisaster();
 
-    void addDisaster();
-    void viewAllDisasters();
-    void searchDisaster();
-    void updateDisaster();
-    void deleteDisaster();
-
-public:
-    DisasterMenu();
-
-    void show();
-};
-
-}
+        public:
+            DisasterMenu();
+            void show();
+        };
+    }
 }

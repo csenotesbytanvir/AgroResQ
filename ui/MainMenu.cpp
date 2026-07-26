@@ -89,7 +89,7 @@ namespace AgroResQ
         void MainMenu::showDashboard()
         {
             std::cout << "\n============================================================\n";
-            std::cout << "                    AGRO RES Q DASHBOARD\n";
+            std::cout << "                    AGRO-RESQ DASHBOARD\n";
             std::cout << "============================================================\n";
 
             std::cout << "\n--- DISASTER STATISTICS ---\n";
